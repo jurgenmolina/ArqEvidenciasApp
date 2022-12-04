@@ -1,7 +1,9 @@
 package com.app.proyect.Modelo;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -63,16 +65,9 @@ public class Usuario {
 	@Column(name = "foto")
 	private String foto;
 	
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn( name = "rol_id")
-	private Rol rol;
-	
-	@ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-	@JoinTable(
-			name = "usuarios_roles",
-			joinColumns = @JoinColumn(name = "usuario_id",referencedColumnName = "id"),
-			inverseJoinColumns = @JoinColumn(name = "rol_id",referencedColumnName = "id")
-			)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinTable(name = "usuarios_roles", joinColumns = @JoinColumn(name = "usuario_id", referencedColumnName = "id"),
+	inverseJoinColumns = @JoinColumn(name = "rol_id", referencedColumnName = "id"))
 	private Collection<Rol> roles;
 	
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -98,10 +93,12 @@ public class Usuario {
 		this.email = email;
 		this.password = password;
 	}
-
+	
+	
+	
 	public Usuario(int codigo, String tipoDocumento, String documento, String primerNombre, String segundoNombre,
-			String primerApellido, String segundoApellido, String telefono, String email, String password, String foto,
-			Rol rol) {
+			String primerApellido, String segundoApellido, String telefono, String email, String password,
+			String foto) {
 		super();
 		this.codigo = codigo;
 		this.tipoDocumento = tipoDocumento;
@@ -114,12 +111,29 @@ public class Usuario {
 		this.email = email;
 		this.password = password;
 		this.foto = foto;
-		this.rol = rol;
+	}
+
+	public Usuario(int codigo, String tipoDocumento, String documento, String primerNombre, String segundoNombre,
+			String primerApellido, String segundoApellido, String telefono, String email, String password, String foto,
+			Collection<Rol> roles) {
+		super();
+		this.codigo = codigo;
+		this.tipoDocumento = tipoDocumento;
+		this.documento = documento;
+		this.primerNombre = primerNombre;
+		this.segundoNombre = segundoNombre;
+		this.primerApellido = primerApellido;
+		this.segundoApellido = segundoApellido;
+		this.telefono = telefono;
+		this.email = email;
+		this.password = password;
+		this.foto = foto;
+		this.roles = roles;
 	}
 
 	public Usuario(int id, int codigo, String tipoDocumento, String documento, String primerNombre,
 			String segundoNombre, String primerApellido, String segundoApellido, String telefono, String email,
-			String password, String foto, Rol rol) {
+			String password, String foto, Set<Rol> roles) {
 		super();
 		this.id = id;
 		this.codigo = codigo;
@@ -133,7 +147,25 @@ public class Usuario {
 		this.email = email;
 		this.password = password;
 		this.foto = foto;
-		this.rol = rol;
+		this.roles = roles;
+	}
+	
+	
+
+	public Collection<Rol> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Collection<Rol> roles) {
+		this.roles = roles;
+	}
+
+	public Set<Grupo> getGruposEstudiantes() {
+		return gruposEstudiantes;
+	}
+
+	public void setGruposEstudiantes(Set<Grupo> gruposEstudiantes) {
+		this.gruposEstudiantes = gruposEstudiantes;
 	}
 
 	public int getId() {
@@ -231,14 +263,6 @@ public class Usuario {
 	public void setFoto(String foto) {
 		this.foto = foto;
 	}
-
-	public Rol getRol() {
-		return rol;
-	}
-
-	public void setRol(Rol rol) {
-		this.rol = rol;
-	}
 	
 	public void añadirRol(Rol rol) {
 		this.roles.add(rol);
@@ -256,13 +280,6 @@ public class Usuario {
 		this.gruposEstudiantes.remove(grupo);
 	}
 
-	public Collection<Rol> getRoles() {
-		return roles;
-	}
-
-	public void setRoles(Collection<Rol> roles) {
-		this.roles = roles;
-	}
 
 	public Set<Grupo> getGrupo() {
 		return gruposEstudiantes;

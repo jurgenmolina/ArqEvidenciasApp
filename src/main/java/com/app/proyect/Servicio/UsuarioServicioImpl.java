@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
 
+import org.aspectj.weaver.NewConstructorTypeMunger;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -22,12 +23,17 @@ import org.springframework.stereotype.Service;
 import com.app.proyect.DTO.UsuarioRegistroDTO;
 import com.app.proyect.Modelo.Rol;
 import com.app.proyect.Modelo.Usuario;
+import com.app.proyect.Repositorio.RolRepositorio;
 import com.app.proyect.Repositorio.UsuarioRepositorio;
 
 @Service
 public class UsuarioServicioImpl implements UsuarioServicio {
-
+	
+	@Autowired
 	private UsuarioRepositorio usuarioRepositorio;
+	
+	@Autowired
+	private RolRepositorio rolRepositorio;
 	
 	@Lazy
 	@Autowired
@@ -37,22 +43,23 @@ public class UsuarioServicioImpl implements UsuarioServicio {
 		super();
 		this.usuarioRepositorio = usuarioRepositorio;
 	}
-
+	
 	@Override
 	public Usuario guardar(UsuarioRegistroDTO registroDTO) {
 		
-		Usuario usuario = new Usuario(registroDTO.getId(), registroDTO.getCodigo(), registroDTO.getTipoDocumento(),registroDTO.getDocumento(), 
-				registroDTO.getPrimerNombre(), registroDTO.getSegundoNombre(), registroDTO.getPrimerApellido(),registroDTO.getSegundoApellido(),
-				registroDTO.getTelefono(),registroDTO.getEmail(), passwordEncoder.encode(registroDTO.getPassword()), registroDTO.getFoto(),
-				registroDTO.getRol());
-		usuario.setRol(new Rol(1, "Admin"));
+		List<Rol> rolList = rolRepositorio.findAll();
+		
+		Usuario usuario = new Usuario(registroDTO.getCodigo(), registroDTO.getTipoDocumento(),
+				registroDTO.getDocumento(), registroDTO.getPrimerNombre(), registroDTO.getSegundoNombre(),
+				registroDTO.getPrimerApellido(), registroDTO.getSegundoApellido(), registroDTO.getTelefono(), registroDTO.getEmail(), 
+				passwordEncoder.encode(registroDTO.getPassword()), registroDTO.getFoto(),Arrays.asList(rolList.get(0)));
+		
 		return usuarioRepositorio.save(usuario);
 	}
 
-	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		Usuario usuario = usuarioRepositorio.findByEmail(username);
-		if(usuario == null || usuario.getRol().getId() != 1) {
+		if(usuario == null) {
 			throw new UsernameNotFoundException("Usuario o password inválidos");
 		}
 		return new User(usuario.getEmail(),usuario.getPassword(), mapearAutoridadesRoles(usuario.getRoles()));
@@ -63,7 +70,16 @@ public class UsuarioServicioImpl implements UsuarioServicio {
 	}
 	
 	@Override
-	public Usuario insertUsuario(Usuario usuario) {
+	public Usuario insertEstudiante(Usuario usuario) {
+		List<Rol> rolList = rolRepositorio.findAll();
+		usuario.setRoles(Arrays.asList(rolList.get(2)));
+		return usuarioRepositorio.save(usuario);
+	}
+	
+	@Override
+	public Usuario insertProfesor(Usuario usuario) {
+		List<Rol> rolList = rolRepositorio.findAll();
+		usuario.setRoles(Arrays.asList(rolList.get(1)));
 		return usuarioRepositorio.save(usuario);
 	}
 	
@@ -100,9 +116,14 @@ public class UsuarioServicioImpl implements UsuarioServicio {
 	public List<Usuario> listarProfesores() {
 		List<Usuario> usuarios = usuarioRepositorio.findAll();
 		List<Usuario> nueva = new ArrayList<Usuario>();
-		System.out.println(usuarios.size());
+		List<Rol> rols = rolRepositorio.findAll();
+		Rol rolDirector = rols.get(0);
+		Rol rolProfesor = rols.get(1);
+		Rol rolEstudiante = rols.get(2);
+		
 		for (int i = usuarios.size(); i > 0; i--) {
-			if (usuarios.get(i-1).getRol().getId() == 2) {
+			if (!usuarios.get(i-1).getRoles().contains(rolEstudiante) && usuarios.get(i-1).getRoles().contains(rolProfesor) &&
+					!usuarios.get(i-1).getRoles().contains(rolDirector)) {
 				nueva.add(usuarios.get(i-1));
 			}
 		}
@@ -113,9 +134,14 @@ public class UsuarioServicioImpl implements UsuarioServicio {
 	public List<Usuario> listarEstudiantes() {
 		List<Usuario> usuarios = usuarioRepositorio.findAll();
 		List<Usuario> nueva = new ArrayList<Usuario>();
-		System.out.println(usuarios.size());
+		List<Rol> rols = rolRepositorio.findAll();
+		Rol rolDirector = rols.get(0);
+		Rol rolProfesor = rols.get(1);
+		Rol rolEstudiante = rols.get(2);
+		
 		for (int i = usuarios.size(); i > 0; i--) {
-			if (usuarios.get(i-1).getRol().getId() == 3) {
+			if (usuarios.get(i-1).getRoles().contains(rolEstudiante) && !usuarios.get(i-1).getRoles().contains(rolProfesor) &&
+					!usuarios.get(i-1).getRoles().contains(rolDirector)) {
 				nueva.add(usuarios.get(i-1));
 			}
 		}

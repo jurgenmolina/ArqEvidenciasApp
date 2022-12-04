@@ -1,5 +1,7 @@
 package com.app.proyect.DTO;
 
+import java.util.Collection;
+
 import javax.persistence.Column;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -20,7 +22,6 @@ public class UsuarioRegistroDTO {
 	private String email;
 	private String password;
 	private String foto;
-	private Rol rol;
 
 	public UsuarioRegistroDTO() {
 
@@ -43,6 +44,7 @@ public class UsuarioRegistroDTO {
 		this.password = password;
 		this.foto = foto;
 	}
+	
 
 	public int getId() {
 		return id;
@@ -139,15 +141,6 @@ public class UsuarioRegistroDTO {
 	public void setFoto(String foto) {
 		this.foto = foto;
 	}
-
-	public Rol getRol() {
-		return rol;
-	}
-
-	public void setRol(Rol rol) {
-		this.rol = rol;
-	}
-	
 	
 
 }
