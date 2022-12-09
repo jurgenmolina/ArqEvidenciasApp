@@ -14,15 +14,15 @@ import javax.persistence.Table;
 @Table(name = "competencias")
 public class Competencia {
 	
-	@Id
+	@Id 
 	@Column(name = "identificacion")
-	private String identificación;
+	private String identificacion;
 	
 	@Column(name = "tipoCompetencia")
 	private String tipoCompetencia;
 	
 	@Column(name = "nombre")
-	private String nombre;
+	private String nombre; 
 	
 	@Column(name = "descripcion")
 	private String descripcion;
@@ -37,10 +37,10 @@ public class Competencia {
 		super();
 	}
 
-	public Competencia(String identificación, String tipoCompetencia, String nombre, String descripcion,
+	public Competencia(String identificacion, String tipoCompetencia, String nombre, String descripcion,
 			String resultadoAprendizaje, Set<Criterio> criterios) {
 		super();
-		this.identificación = identificación;
+		this.identificacion = identificacion;
 		this.tipoCompetencia = tipoCompetencia;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
@@ -48,12 +48,12 @@ public class Competencia {
 		this.criterios = criterios;
 	}
 
-	public String getIdentificación() {
-		return identificación;
+	public String getIdentificacion() {
+		return identificacion;
 	}
 
-	public void setIdentificación(String identificación) {
-		this.identificación = identificación;
+	public void setIdentificacion(String identificación) {
+		this.identificacion = identificación;
 	}
 
 	public String getTipoCompetencia() {
@@ -101,7 +101,7 @@ public class Competencia {
 
 	@Override
 	public String toString() {
-		return "Competencia [identificación=" + identificación + ", tipoCompetencia=" + tipoCompetencia + ", nombre="
+		return "Competencia [identificación=" + identificacion + ", tipoCompetencia=" + tipoCompetencia + ", nombre="
 				+ nombre + "]";
 	}
 	

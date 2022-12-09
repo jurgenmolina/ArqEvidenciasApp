@@ -73,6 +73,7 @@ public class UsuarioServicioImpl implements UsuarioServicio {
 	public Usuario insertEstudiante(Usuario usuario) {
 		List<Rol> rolList = rolRepositorio.findAll();
 		usuario.setRoles(Arrays.asList(rolList.get(2)));
+		usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
 		return usuarioRepositorio.save(usuario);
 	}
 	
@@ -80,6 +81,7 @@ public class UsuarioServicioImpl implements UsuarioServicio {
 	public Usuario insertProfesor(Usuario usuario) {
 		List<Rol> rolList = rolRepositorio.findAll();
 		usuario.setRoles(Arrays.asList(rolList.get(1)));
+		usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
 		return usuarioRepositorio.save(usuario);
 	}
 	

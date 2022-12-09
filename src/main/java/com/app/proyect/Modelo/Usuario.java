@@ -70,16 +70,13 @@ public class Usuario {
 	inverseJoinColumns = @JoinColumn(name = "rol_id", referencedColumnName = "id"))
 	private Collection<Rol> roles;
 	
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JsonBackReference
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "estudiantes_grupos", 
 	joinColumns = @JoinColumn(name = "usuario_id", referencedColumnName = "id"),
 			inverseJoinColumns = @JoinColumn(name = "grupo_id",referencedColumnName = "id")
 	)
-	private Set<Grupo> gruposEstudiantes ;
+	private List<Grupo> grupos = new ArrayList<>();
 	
-	@OneToMany(mappedBy = "profesor", cascade = CascadeType.ALL)
-	private Set<Grupo> gruposProfesores = new HashSet<>();
 
 	public Usuario() {
 
@@ -93,8 +90,6 @@ public class Usuario {
 		this.email = email;
 		this.password = password;
 	}
-	
-	
 	
 	public Usuario(int codigo, String tipoDocumento, String documento, String primerNombre, String segundoNombre,
 			String primerApellido, String segundoApellido, String telefono, String email, String password,
@@ -149,8 +144,6 @@ public class Usuario {
 		this.foto = foto;
 		this.roles = roles;
 	}
-	
-	
 
 	public Collection<Rol> getRoles() {
 		return roles;
@@ -158,14 +151,6 @@ public class Usuario {
 
 	public void setRoles(Collection<Rol> roles) {
 		this.roles = roles;
-	}
-
-	public Set<Grupo> getGruposEstudiantes() {
-		return gruposEstudiantes;
-	}
-
-	public void setGruposEstudiantes(Set<Grupo> gruposEstudiantes) {
-		this.gruposEstudiantes = gruposEstudiantes;
 	}
 
 	public int getId() {
@@ -271,45 +256,24 @@ public class Usuario {
 	public void eliminarRol(Rol rol) {
 		this.roles.remove(rol);
 	}
-	
-	public void añadirGrupoEstudiante(Grupo grupo) {
-		this.gruposEstudiantes.add(grupo);
+
+	public List<Grupo> getGrupos() {
+		return grupos;
 	}
 
-	public void eliminarGrupoEstudiante(Grupo grupo) {
-		this.gruposEstudiantes.remove(grupo);
+	public void setGrupos(List<Grupo> grupos) {
+		this.grupos = grupos;
 	}
 
-
-	public Set<Grupo> getGrupo() {
-		return gruposEstudiantes;
-	}
-	
-	public Set<Grupo> getGrupos() {
-		return gruposEstudiantes;
-	}
-
-	public void setGrupos(Set<Grupo> grupos) {
-		this.gruposEstudiantes = grupos;
-	}
-	
-	public Set<Grupo> getGruposProfesores() {
-		return gruposProfesores;
-	}
-
-	public void setGruposProfesores(Set<Grupo> gruposProfesores) {
-		this.gruposProfesores = gruposProfesores;
-		for(Grupo grupo : gruposProfesores) {
-			grupo.setProfesor(this);
-		}
-	}
+//	@Override
+//	public String toString() {
+//		return  primerNombre + " " + segundoNombre + " " + primerApellido + " " + segundoApellido;
+//	}
 
 	@Override
 	public String toString() {
-		return  primerNombre + " " + segundoNombre + " " + primerApellido + " " + segundoApellido;
+		return " " + codigo + " ";
 	}
-
-	
 
 	
 	

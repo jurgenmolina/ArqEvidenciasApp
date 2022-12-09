@@ -21,11 +21,11 @@ public class Criterio {
 	@Column(name = "descripcion")
 	private String descripcion;
 	
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn( name = "competencia_id")
 	private Competencia competencia;
 
-	public Criterio() {
+	public Criterio() { 
 		super();
 	}
 

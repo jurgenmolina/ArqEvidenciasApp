@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head th:replace="menu/menu :: head">
+<meta charset="utf-8">
+</head>
+<body>
+
+	<header th:replace="menu/menu :: header"></header>
+	
+	<section th:replace="menu/menu :: section"></section>
+    
+    <main class="mt-5 pt-3">
+      <div class="container-fluid">
+      	
+      	
+      	<table id="example" class="table table-striped table-bordered"
+			style="width: 100%">
+			<thead class="table-dark">
+				<tr>
+					<th>Identificación</th>
+					<th>Tipo de Competencia</th>
+					<th>Nombre</th>
+					<th>Descripción</th>
+					<th>Resultado de aprendizaje</th>
+					<th> Opciones</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="competencia : ${listCompetencia}">
+
+					<td th:text="${competencia.identificacion}"></td>
+					<td th:text="${competencia.tipoCompetencia}"></td>
+					<td th:text="${competencia.nombre}"></td>
+					<td th:text="${competencia.descripcion}"></td>
+					<td th:text="${competencia.resultadoAprendizaje}"></td>
+					<td><a  th:href="@{/competencias/ver/{id}(id=${competencia.identificacion})}" class="btn btn-warning">Ver criterios</a>&nbsp&nbsp&nbsp
+					 	<a th:href="@{/competencias/editar/{id}(id=${competencia.identificacion})}" class="btn btn-info">Editar</a>&nbsp&nbsp&nbsp					 
+						<a th:href="@{/competencias/{id}(id=${competencia.identificacion})}" class="btn btn-danger">Eliminar</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	
+      
+      </div>
+      </main>
+   
+    <footer th:replace="menu/menu :: footer"></footer>
+    
+  </body>
+</html>
+

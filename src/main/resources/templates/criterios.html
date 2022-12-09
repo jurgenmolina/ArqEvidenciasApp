@@ -18,23 +18,17 @@
 			style="width: 100%">
 			<thead class="table-dark">
 				<tr>
-					<th>Nombre</th>
 					<th>Descripción</th>
-					<th>Curso</th>
-					<th>Profesor</th>
-					<th> Opciones</th>
+					<th>Opciones</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="grupo : ${listGrupos}">
+				<tr th:each="criterio : ${listCriterio}">
 
-					<td th:text="${grupo.nombre}"></td>
-					<td th:text="${grupo.descripcion}"></td>
-					<td th:text="${grupo.curso}"></td>
-					<td th:text="${grupo.profesor}"></td>
-					<td><a th:href="@{/grupos/agregarEstudiantes/{id}(id=${grupo.id})}" class="btn btn-warning">Agregar Estudiantes</a>&nbsp&nbsp&nbsp
-					 	<a th:href="@{/grupos/editar/{id}(id=${grupo.id})}" class="btn btn-info">Editar</a>&nbsp&nbsp&nbsp					 
-						<a th:href="@{/grupos/{id}(id=${grupo.id})}" class="btn btn-danger">Eliminar</a>
+					<td th:text="${criterio.descripcion}"></td>
+					<td><a  th:href="@{/criterios/ver/{id}(id=${criterio.id})}" class="btn btn-warning">Ver</a>&nbsp&nbsp&nbsp
+					 	<a th:href="@{/criterios/editar/{id}(id=${criterio.id})}" class="btn btn-info">Editar</a>&nbsp&nbsp&nbsp					 
+						<a th:href="@{/criterios/{id}(id=${criterio.id})}" class="btn btn-danger">Eliminar</a>
 					</td>
 				</tr>
 			</tbody>
@@ -45,6 +39,7 @@
       </main>
    
     <footer th:replace="menu/menu :: footer"></footer>
+    
   </body>
 </html>
 

@@ -1,5 +1,6 @@
 package com.app.proyect.Controlador;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +14,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.app.proyect.Modelo.Competencia;
+import com.app.proyect.Modelo.Criterio;
 import com.app.proyect.Modelo.Usuario;
 import com.app.proyect.Servicio.CompetenciaServicio;
+import com.app.proyect.Servicio.CriterioServicio;
 import com.app.proyect.Servicio.UsuarioServicio;
 
 @Controller
@@ -25,6 +28,9 @@ public class CompetenciaControlador {
 	
 	@Autowired
 	private UsuarioServicio usuarioServicio;
+	
+	@Autowired
+	private CriterioServicio criterioServicio;
 	
 	@GetMapping("/competencias")
 	public String showListCompetencia(Model modelo) {
@@ -55,6 +61,23 @@ public class CompetenciaControlador {
 		return "redirect:/competencias";
 	}
 	
+	@GetMapping("/competencias/ver/{id}")
+	public String viewProyecto(@PathVariable String id, Model modelo) {
+		modelo.addAttribute("competencia", competenciaServicio.selectCompetenciabyID(id));
+		List<Criterio> listCriterio = criterioServicio.listCriterios();
+		
+		List<Criterio> newList = new ArrayList<>();
+		
+	    for (Criterio criterio : listCriterio) { 
+	        if (competenciaServicio.selectCompetenciabyID(id).getCriterios().contains(criterio)) { 
+	            newList.add(criterio); 
+	        } 
+	    }
+		
+		modelo.addAttribute("listCriterio", newList);
+		return "viewCC";
+	}
+	
 	@GetMapping("/competencias/editar/{id}")
 	public String showFormEditCompetencia(@PathVariable String id, Model modelo) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -69,7 +92,7 @@ public class CompetenciaControlador {
 			Model modelo) {
 	    
 		Competencia competenciaActual = competenciaServicio.selectCompetenciabyID(id);
-		competenciaActual.setIdentificación(competencia.getIdentificación());
+		competenciaActual.setIdentificacion(competencia.getIdentificacion());
 		competenciaActual.setNombre(competencia.getNombre());
 		competenciaActual.setDescripcion(competencia.getDescripcion());
 		competenciaActual.setTipoCompetencia(competencia.getTipoCompetencia());

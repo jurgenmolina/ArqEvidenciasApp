@@ -1,6 +1,8 @@
 package com.app.proyect.Modelo;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -30,12 +32,12 @@ public class Grupo {
 	@Column(name = "descripcion")
 	private String descripcion;
 	
-	@ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 	@JoinTable(name = "estudiantes_grupos", 
 			joinColumns = @JoinColumn(name = "grupo_id", referencedColumnName = "id"),
 			inverseJoinColumns = @JoinColumn(name = "usuario_id",referencedColumnName = "id")
 	)
-	private Set<Usuario> estudiantes = new HashSet<>();
+	private List<Usuario> estudiantes = new ArrayList<>();
 	
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn( name = "profesor_id")
@@ -48,8 +50,8 @@ public class Grupo {
 	public Grupo() {
 		super();
 	}
-	
-	public Grupo(int id, String nombre, String descripcion, Set<Usuario> estudiantes, Usuario profesor, Curso curso) {
+
+	public Grupo(int id, String nombre, String descripcion, List<Usuario> estudiantes, Usuario profesor, Curso curso) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -83,12 +85,20 @@ public class Grupo {
 		this.descripcion = descripcion;
 	}
 
-	public Set<Usuario> getEstudiantes() {
+	public List<Usuario> getEstudiantes() {
 		return estudiantes;
 	}
 
-	public void setEstudiantes(Set<Usuario> estudiantes) {
+	public void setEstudiantes(List<Usuario> estudiantes) {
 		this.estudiantes = estudiantes;
+	}
+	
+	public void añadirEstudiante(Usuario estudiante) {
+		this.estudiantes.add(estudiante);
+	}
+
+	public void eliminarEstudiante(Usuario estudiante) {
+		this.estudiantes.remove(estudiante);
 	}
 
 	public Usuario getProfesor() {
@@ -105,14 +115,6 @@ public class Grupo {
 
 	public void setCurso(Curso curso) {
 		this.curso = curso;
-	}
-	
-	public void añadirEstudiante(Usuario estudiante) {
-		this.estudiantes.add(estudiante);
-	}
-
-	public void eliminarEstudiante(Usuario estudiante) {
-		this.estudiantes.remove(estudiante);
 	}
 
 	@Override

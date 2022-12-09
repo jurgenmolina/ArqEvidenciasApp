@@ -28,6 +28,9 @@ public class CriterioControlador {
 	@Autowired
 	private UsuarioServicio usuarioServicio;
 	
+	@Autowired
+	private CompetenciaServicio competenciaServicio;
+	
 	@GetMapping("/criterios")
 	public String showListCriterio(Model modelo) {
 		
@@ -48,6 +51,8 @@ public class CriterioControlador {
 		modelo.addAttribute("usuario", usuario);
 		Criterio criterio = new Criterio();
 		modelo.addAttribute("criterio", criterio);
+		List<Competencia> listCompetencias = competenciaServicio.listCompetencias();
+		modelo.addAttribute("listCompetencias", listCompetencias);
 		return "crear_criterio";
 	}
 	
@@ -61,6 +66,8 @@ public class CriterioControlador {
 	public String showFormEditCriterio(@PathVariable int id, Model modelo) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		Usuario usuario = usuarioServicio.selectUsuariobyEmail(auth.getName());
+		List<Competencia> listCompetencias = competenciaServicio.listCompetencias();
+		modelo.addAttribute("listCompetencias", listCompetencias);
 		modelo.addAttribute("usuario", usuario);
 		modelo.addAttribute("criterio", criterioServicio.selectCriteriobyID(id));
 		return "editar_criterio";

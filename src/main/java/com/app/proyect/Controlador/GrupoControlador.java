@@ -1,6 +1,10 @@
 package com.app.proyect.Controlador;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+
+import javax.sound.midi.Soundbank;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -94,6 +98,42 @@ public class GrupoControlador {
 	@GetMapping("/grupos/{id}")
 	public String deleteGrupo(@PathVariable int id) {
 		grupoServicio.deleteGrupo(id);
+		return "redirect:/grupos";
+	}
+	
+
+	@GetMapping("/grupos/agregarEstudiantes/{id}")
+	public String showFormAgregarEstudiantes(@PathVariable int id, Model modelo) {
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		Usuario usuario = usuarioServicio.selectUsuariobyEmail(auth.getName());
+		List<Usuario> listEstudiantes = usuarioServicio.listarEstudiantes();
+		Grupo grupo = grupoServicio.selectGrupobyID(id);
+		
+		List<Usuario> newList = new ArrayList<>();
+		
+	    for (Usuario estudiante : listEstudiantes) { 
+	        if (!grupo.getEstudiantes().contains(estudiante)) { 
+	            newList.add(estudiante); 
+	        } 
+	    }
+		
+		modelo.addAttribute("grupo", grupo);
+		modelo.addAttribute("listEstudiantes", newList);
+		modelo.addAttribute("usuario", usuario);
+		return "grupo_agregar_estudiantes";
+	}
+	
+	@PostMapping("/grupos/agregarEstudiantes/{id}")
+	public String addEstudiantesGrupo(@PathVariable int id, @ModelAttribute("grupo") Grupo grupo,
+			Model modelo) {
+	    
+		Grupo grupoActual = grupoServicio.selectGrupobyID(id);
+		
+		for (Usuario estudiante : grupo.getEstudiantes()) {
+			grupoActual.añadirEstudiante(estudiante);
+		} 
+		grupoServicio.updateGrupo(grupoActual);
 		return "redirect:/grupos";
 	}
 	
