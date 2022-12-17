@@ -21,7 +21,7 @@
                    <div class="form-group">
 						<label class="control-label" for="codigo">Codigo : </label> <input
 							id="codigo" type="text" class="form-control" th:field="*{codigo}"
-							required autofocus="autofocus">
+							required autofocus="autofocus"> 
 					</div>
 					
 					 <div class="form-group">
@@ -81,6 +81,18 @@
 					<div class="form-group">
 						<label class="control-label" for="password">Password : </label> <input
 							type="password" id="password" class="form-control" th:field="*{password}"
+							required autofocus="autofocus">
+					</div>
+					
+					<div class="form-group">
+						<label class="control-label" for="FechaNacimiento">Fecha nacimiento : </label> <input
+							id="fechaNacimiento"  type="date" class="form-control" th:field="*{fechaNacimiento}"
+							required autofocus="autofocus">
+					</div>
+					
+					<div class="form-group">
+						<label class="control-label" for="semestre">Semestre : </label> <input
+							id="semestre"  type="text" class="form-control" th:field="*{semestre}"
 							required autofocus="autofocus">
 					</div>
 					

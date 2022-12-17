@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head th:replace="menu/menu2 :: head">
+<meta charset="utf-8">
+</head>
+<body>
+
+	<header th:replace="menu/menu :: header"></header>
+
+	<section th:replace="menu/menu :: section"></section>
+
+	<main class="mt-5 pt-3">
+		<div class="container-fluid">
+
+			<div class="card text-center">
+				<div class="card-header">
+					<span>Información del grupo</span>
+				</div>
+				<div class="card-body">
+					<h5 class="card-title">
+						<span th:text="${grupo.nombre}"></span> - <span
+							th:text="${grupo.curso}"></span>
+					</h5>
+					<p class="card-text" th:text="${grupo.descripcion}"></p>
+
+
+					<a sec:authorize="hasAnyAuthority('profesor')"
+						th:href="@{/actividades/{id_grupo}/ver(id_grupo=${id})}"
+						class="btn btn-dark">Ver Estudiantes</a>
+						<br>
+						<br>
+					<a 
+						th:href="@{/actividades/agregarCompetencias/{id}(id=${id})}"
+						class="btn btn-secondary">Competencias del grupo</a>
+
+					<form sec:authorize="hasAnyAuthority('profesor')" class="row g-3" th:action="@{/actividades/nuevo}"
+						th:object="${grupo}" method="POST">
+
+						<div class="col-md-12">
+							<input type="hidden" name="id" th:field="*{id}"
+								class="form-control" required>
+						</div>
+
+						<div class="col-md-12">
+							<input type="hidden" name="profesor" th:field="*{profesor}"
+								class="form-control" required>
+						</div>
+
+						<div class="box-footer">
+							<button class="btn btn-success">Nueva actividad</button>
+						</div>
+
+					</form>
+				</div>
+
+				<div class="card-footer text-muted">
+					Docente : <span th:text="${grupo.profesor.primerNombre}"></span> <span
+						th:text="${grupo.profesor.segundoNombre}"></span> <span
+						th:text="${grupo.profesor.primerApellido}"></span> <span
+						th:text="${grupo.profesor.segundoApellido}"></span>
+				</div>
+			</div>
+			<br>
+			<h5 class="card-title text-center">Actividades</h5>
+
+			<table id="example" class="table table-striped table-bordered"
+				style="width: 100%">
+				<thead class="table-dark">
+					<tr>
+						<th>Nombre</th>
+						<th>Descripción</th>
+						<th>Tipo de evidencia</th>
+						<th>Opciones</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="actividad : ${listActividades}">
+
+						<td th:text="${actividad.nombre}"></td>
+						<td th:text="${actividad.descripcion}"></td>
+						<td th:text="${actividad.resultadoAprendizaje}"></td>
+						<td><a sec:authorize="hasAnyAuthority('profesor')"
+							th:href="@{/actividades/{id_grupo}/{id_actividad}/entregas(id_grupo=${id}, id_actividad=${actividad.id})}"
+							class="btn btn-warning">Ver entregas</a>&nbsp&nbsp&nbsp
+							
+							
+						    <div th:if="${ids.contains(actividad.id)}">
+							  <a sec:authorize="hasAnyAuthority('estudiante')"
+							th:href="@{/actividades/{id_grupo}/{id_actividad}(id_grupo=${id}, id_actividad=${actividad.id})}"
+							class="btn btn-info">Editar evidencia</a>&nbsp&nbsp&nbsp
+							</div>
+							<div th:unless="${ids.contains(actividad.id)}">
+							  <a sec:authorize="hasAnyAuthority('estudiante')"
+							th:href="@{/actividades/{id_grupo}/{id_actividad}(id_grupo=${id}, id_actividad=${actividad.id})}"
+							class="btn btn-warning">Subir evidencia</a>&nbsp&nbsp&nbsp
+							</div>
+							
+							 <a sec:authorize="hasAnyAuthority('profesor')"
+							th:href="@{/actividades/{id_grupo}/editar/{id_actividad}(id_grupo=${id}, id_actividad=${actividad.id})}"
+							class="btn btn-info">Editar</a>&nbsp&nbsp&nbsp <a sec:authorize="hasAnyAuthority('profesor')"
+							th:href="@{/actividades/{id_grupo}/delete/{id_actividad}(id_grupo=${id}, id_actividad=${actividad.id})}"
+							class="btn btn-danger">Eliminar</a></td>
+					</tr>
+				</tbody>
+			</table>
+
+		</div>
+	</main>
+
+	<footer th:replace="menu/menu2 :: footer"></footer>
+</body>
+</html>
+

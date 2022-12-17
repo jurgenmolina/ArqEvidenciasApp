@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head th:replace="menu/menu2 :: head">
+<meta charset="utf-8">
+</head>
+<body>
+
+	<header th:replace="menu/menu :: header"></header>
+	
+	<section th:replace="menu/menu :: section"></section>
+    
+    <main class="mt-5 pt-3">
+      <div class="container-fluid">
+      
+      	 <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
+              <h1 class="text-center">Crear un nuevo curso</h1>
+              <div class="card-body">
+                 <form class="row g-3" th:action="@{/resultadoAprendizajes}" th:object="${resultadoAprendizaje}" method="POST">
+                 	
+                 	<div class="col-md-4">
+						<div >
+						<label for="floatingSelectGrid">Tipo de Evidencia: </label>
+							<select th:field="*{tipoEvidencia}" class="form-select" required>
+							  <option value="Maqueta">Maqueta</option>
+							  <option value="Poster">Poster</option>
+							  <option value="Poster Cientifico">Poster Cientifico</option>
+							  <option value="Portafolio">Portafolio</option>
+							  <option value="Bitacora">Bitacora</option>
+							  <option value="Exposicion Oral">Exposicion Oral</option>
+							  <option value="Ensayo">Ensayo</option>
+							  <option value="Pruebas Genericas Tipo Saber Pro Arquitectura">Pruebas Genericas Tipo Saber Pro Arquitectura</option>
+							  <option value="Prueba Modulo Estudio Proyectual Tipo Saber Pro ">Prueba Modulo Estudio Proyectual Tipo Saber Pro </option>
+							  <option value="Prueba Modulo Proyecto Arquitectura Tipo Saber Pro">Prueba Modulo Proyecto Arquitectura Tipo Saber Pro</option>
+							  <option value="Memoria Descriptiva del Proyecto">Memoria Descriptiva del Proyecto</option>
+							  <option value="Proyecto Arquitectonico">Proyecto Arquitectonico</option>
+							  <option value="Plano">Plano</option>
+							  <option value="Dibujo Arquitectonico">Dibujo Arquitectonico</option>
+							  <option value="Cuadro Sinoptico">Cuadro Sinoptico</option>
+							  <option value="Mapa Conceptual">Mapa Conceptual</option>
+							  <option value="Mapa Mental">Mapa Mental</option>
+							  <option value="Pieza Artistica">Pieza Artistica</option>
+							  <option value="Video">Video</option>
+							  <option value="Otro">Otro</option>							
+							</select>														
+						</div>
+					</div> 
+                    
+                    <div class="col-md-12">
+                       <label>Descripcion : </label>
+                       <input type="text" name="descripcion" th:field="*{descripcion}" class="form-control" required>
+                    </div>
+                    
+                    <div class="col-md-12">
+                       <label>Link Guia : </label>
+                       <input type="text" name="linkGuia" th:field="*{linkGuia}" class="form-control" required>
+                    </div>
+                    
+                    <div class="col-md-12">
+                       <label>Instrumento de Evaluacion : </label>
+                       <input type="text" name="instrumentoEvaluacion" th:field="*{instrumentoEvaluacion}" class="form-control" required>
+                    </div>
+                    
+                    <div class="col-md-12">
+                       <label>Links adicionales : </label>
+                       <input type="text" name="adicional" th:field="*{adicional}" class="form-control" required>
+                    </div>
+             
+                    <div class="box-footer">
+                       <button class="btn btn-success">Agregar</button>                       
+                    </div>
+                 </form>
+              </div>
+              </div>
+              
+      
+      </div>
+      </main>
+   
+    <footer th:replace="menu/menu2 :: footer"></footer>
+    
+  </body>
+</html>
+

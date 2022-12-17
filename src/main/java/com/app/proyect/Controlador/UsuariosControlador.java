@@ -10,10 +10,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.app.proyect.Modelo.Curso;
 import com.app.proyect.Modelo.Rol;
@@ -104,6 +106,7 @@ public class UsuariosControlador {
 		usuarioActual.setEmail(usuario.getEmail());
 		usuarioActual.setPassword(usuario.getPassword());
 		usuarioActual.setFoto(usuario.getFoto());
+		usuarioActual.setFechaNacimiento(usuario.getFechaNacimiento());
 		usuarioServicio.updateUsuario(usuarioActual);
 		return "redirect:/profesores";
 	}
@@ -140,6 +143,7 @@ public class UsuariosControlador {
 	
 	@PostMapping("/estudiantes")
 	public String insertarEstudiante(@ModelAttribute("estudiante") Usuario estudiante) {
+				
 		usuarioServicio.insertEstudiante(estudiante);
 		return "redirect:/estudiantes";
 	}
@@ -171,6 +175,8 @@ public class UsuariosControlador {
 		usuarioActual.setEmail(usuario.getEmail());
 		usuarioActual.setPassword(usuario.getPassword());
 		usuarioActual.setFoto(usuario.getFoto());
+		usuarioActual.setFechaNacimiento(usuario.getFechaNacimiento());
+		usuarioActual.setSemestre(usuario.getSemestre());
 		usuarioServicio.updateUsuario(usuarioActual);
 		return "redirect:/estudiantes";
 	}

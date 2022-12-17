@@ -1,12 +1,18 @@
 package com.app.proyect.Modelo;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -32,6 +38,13 @@ public class Competencia {
 	
 	@OneToMany(mappedBy = "competencia", cascade = CascadeType.ALL)
 	private Set<Criterio> criterios = new HashSet<>();
+	
+	@ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+	@JoinTable(name = "grupos_competencias", 
+			joinColumns = @JoinColumn(name = "competencia_id", referencedColumnName = "identificacion"),
+			inverseJoinColumns = @JoinColumn(name = "grupo_id",referencedColumnName = "id")
+	)
+	private List<Grupo> grupos = new ArrayList<>();
 
 	public Competencia() {
 		super();
@@ -46,6 +59,26 @@ public class Competencia {
 		this.descripcion = descripcion;
 		this.resultadoAprendizaje = resultadoAprendizaje;
 		this.criterios = criterios;
+	}
+
+	public Competencia(String identificacion, String tipoCompetencia, String nombre, String descripcion,
+			String resultadoAprendizaje, Set<Criterio> criterios, List<Grupo> grupos) {
+		super();
+		this.identificacion = identificacion;
+		this.tipoCompetencia = tipoCompetencia;
+		this.nombre = nombre;
+		this.descripcion = descripcion;
+		this.resultadoAprendizaje = resultadoAprendizaje;
+		this.criterios = criterios;
+		this.grupos = grupos;
+	}
+
+	public List<Grupo> getGrupos() {
+		return grupos;
+	}
+
+	public void setGrupos(List<Grupo> grupos) {
+		this.grupos = grupos;
 	}
 
 	public String getIdentificacion() {

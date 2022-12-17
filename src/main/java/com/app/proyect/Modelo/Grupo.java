@@ -16,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -47,6 +48,16 @@ public class Grupo {
 	@JoinColumn( name = "curso_id")
 	private Curso curso;
 	
+	@OneToMany(mappedBy = "grupo", cascade = CascadeType.ALL)
+	private List<Actividad> actividades = new ArrayList<>();
+	
+	@ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+	@JoinTable(name = "grupos_competencias", 
+			joinColumns = @JoinColumn(name = "grupo_id", referencedColumnName = "id"),
+			inverseJoinColumns = @JoinColumn(name = "competencia_id",referencedColumnName = "identificacion")
+	)
+	private List<Competencia> competencias = new ArrayList<>();
+	
 	public Grupo() {
 		super();
 	}
@@ -59,6 +70,25 @@ public class Grupo {
 		this.estudiantes = estudiantes;
 		this.profesor = profesor;
 		this.curso = curso;
+	}
+
+	public Grupo(String nombre, String descripcion, List<Usuario> estudiantes, Usuario profesor, Curso curso,
+			List<Competencia> competencias) {
+		super();
+		this.nombre = nombre;
+		this.descripcion = descripcion;
+		this.estudiantes = estudiantes;
+		this.profesor = profesor;
+		this.curso = curso;
+		this.competencias = competencias;
+	}
+
+	public List<Competencia> getCompetencias() {
+		return competencias;
+	}
+
+	public void setCompetencias(List<Competencia> competencias) {
+		this.competencias = competencias;
 	}
 
 	public int getId() {
@@ -117,9 +147,33 @@ public class Grupo {
 		this.curso = curso;
 	}
 
+	public List<Actividad> getActividades() {
+		return actividades;
+	}
+
+	public void setActividades(List<Actividad> actividades) {
+		this.actividades = actividades;
+	}
+	
+	public void añadirActividad(Actividad actividad) {
+		this.actividades.add(actividad);
+	}
+
+	public void eliminarActividad(Actividad actividad) {
+		this.actividades.remove(actividad);
+	}
+	
+	public void añadirCompetencia(Competencia competencia) {
+		this.competencias.add(competencia);
+	}
+
+	public void eliminarCompetencia(Competencia competencia) {
+		this.competencias.remove(competencia);
+	}
+
 	@Override
 	public String toString() {
-		return "Grupo [nombre=" + nombre + ", descripcion=" + descripcion + ", estudiantes=" + estudiantes
+		return "Grupo: id: "+ id + " [nombre=" + nombre + ", descripcion=" + descripcion + ", estudiantes=" + estudiantes
 				+ ", profesor=" + profesor + ", curso=" + curso + "]";
 	}
 	

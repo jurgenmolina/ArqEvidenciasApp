@@ -18,6 +18,7 @@
 			style="width: 100%">
 			<thead class="table-dark">
 				<tr>
+					<th>Codigo</th>
 					<th>Nombre</th>
 					<th>Semestre</th>
 					<th>Descripción</th>
@@ -26,7 +27,7 @@
 			</thead>
 			<tbody>
 				<tr th:each="curso : ${listcurso}">
-
+					<td th:text="${curso.codigo}"></td>
 					<td th:text="${curso.nombre}"></td>
 					<td th:text="${curso.semestre}"></td>
 					<td th:text="${curso.descripcion}"></td>

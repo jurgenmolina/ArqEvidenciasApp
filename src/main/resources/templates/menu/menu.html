@@ -99,7 +99,7 @@
 
 						<!--             Menu de cursos -->
 
-						<li><a class="nav-link px-3 sidebar-link"
+						<li sec:authorize="hasAnyAuthority('director')"><a class="nav-link px-3 sidebar-link"
 							data-bs-toggle="collapse" href="#layouts1"> <span
 								class="me-2"><i class="bi bi-layout-split"></i></span> <span>Cursos</span>
 								<span class="ms-auto"> <span class="right-icon"> <i
@@ -181,7 +181,7 @@
 						<li class="my-4"><hr class="dropdown-divider bg-light" /></li>
 						<li>
 							<div class="text-muted small fw-bold text-uppercase px-3 mb-3">
-								Competencias</div>
+								Instrumentos de evaluación</div>
 						</li>
 
 						<!--             Menu gestionar competencias -->
@@ -209,6 +209,7 @@
 									
 								</ul>
 							</div></li>
+							
 							<li sec:authorize="hasAnyAuthority('director')"><a
 							class="nav-link px-3 sidebar-link" data-bs-toggle="collapse"
 							href="#layouts5"> <span class="me-2"><i
@@ -232,6 +233,33 @@
 									
 								</ul>
 							</div></li>
+							
+							<!--             Menu gestionar ra -->
+
+						<li sec:authorize="hasAnyAuthority('director')"><a
+							class="nav-link px-3 sidebar-link" data-bs-toggle="collapse"
+							href="#layouts6"> <span class="me-2"><i
+									class="bi bi-people"></i></span> <span>Resultados de aprendizaje</span> <span
+								class="ms-auto"> <span class="right-icon"> <i
+										class="bi bi-chevron-down"></i>
+								</span>
+							</span>
+						</a>
+							<div class="collapse" id="layouts6">
+								<ul class="navbar-nav ps-3">
+									<li><a th:href="@{/resultadoAprendizajes}" class="nav-link px-3">
+											<span class="me-2"><i class="bi bi-person-check"></i></span>
+											<span>Ver R.A.</span>
+									</a></li>
+									<li><a th:href="@{/resultadoAprendizajes/nuevo}"
+										class="nav-link px-3"> <span class="me-2"><i
+												class="bi bi-person-plus"></i></span> <span>Agregar
+												R.A.</span>
+									</a></li>
+									
+								</ul>
+							</div></li>
+					
 							
 
 						<li class="my-4"><hr class="dropdown-divider bg-light" /></li>

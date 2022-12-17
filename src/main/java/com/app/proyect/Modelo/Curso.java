@@ -20,6 +20,9 @@ public class Curso {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
+	@Column(name = "codigo")
+	private String codigo;
+	
 	@Column(name = "nombre")
 	private String nombre;
 	
@@ -36,19 +39,29 @@ public class Curso {
 		super();
 	}
 	
-	public Curso(int id, String nombre, String descripcion) {
+	public Curso(String codigo, String nombre, byte semestre, String descripcion, Set<Grupo> grupos) {
 		super();
-		this.id = id;
+		this.codigo = codigo;
 		this.nombre = nombre;
+		this.semestre = semestre;
 		this.descripcion = descripcion;
+		this.grupos = grupos;
 	}
-	
+
 	public int getId() {
 		return id;
 	}
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
 	}
 
 	public String getNombre() {

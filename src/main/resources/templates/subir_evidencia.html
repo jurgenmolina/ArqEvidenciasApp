@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head th:replace="menu/menu3 :: head">
+<meta charset="utf-8">
+</head>
+<body>
+
+	<header th:replace="menu/menu :: header"></header>
+
+	<section th:replace="menu/menu :: section"></section>
+
+	<main class="mt-5 pt-3">
+		<div class="container-fluid">
+		
+		<a th:href="@{/actividades/{id}(id=${grupo.id})}"
+						class="btn btn-secondary">Atras</a>
+			
+			<div class="card">
+			  <div class="card-header">
+			    Resumen actividad
+			  </div>
+			  <div class="card-body">
+			    <h5 class="card-title"><span th:text="${actividad.nombre}"></span></h5>
+			    <p class="card-text"><span th:text="${actividad.descripcion}"></span></p>
+			    <p class="card-text">Subido: <span th:text="${actividadEstudiante.evidencia}"></span></p>
+			  </div>
+			</div>
+			
+			<div
+				class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
+				<h1 class="text-center">Registrar evidencia</h1>
+				<div class="card-body">
+					<form class="row g-3" th:action="@{/actividades/{id_grupo}/{id_actividad}/{id_ae}(id_grupo=${grupo.id}, id_actividad=${actividad.id}, id_ae=${actividadEstudiante.id})}"
+						th:object="${actividadEstudiante}" method="POST" enctype="multipart/form-data">
+						
+						<div class="form-group">
+						    <label for="exampleFormControlFile1">Evidencia:</label>
+						    <input type="file" name="file"/>
+						  </div>
+
+						<div class="box-footer">
+							<button class="btn btn-success">Actualizar</button>
+						</div>
+					</form>
+				</div>
+			</div>
+
+
+		</div>
+	</main>
+
+	<footer th:replace="menu/menu4 :: footer"></footer>
+</body>
+</html>
+

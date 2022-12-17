@@ -46,7 +46,6 @@ public class CompetenciaControlador {
 	
 	@GetMapping("/competencias/nuevo")
 	public String showFormCompetencia(Model modelo) {
-		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		Usuario usuario = usuarioServicio.selectUsuariobyEmail(auth.getName());
 		modelo.addAttribute("usuario", usuario);

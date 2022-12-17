@@ -18,6 +18,12 @@
               <div class="card-body">
                  <form class="row g-3" th:action="@{/cursos/{id}(id=${curso.id})}" th:object="${curso}" method="POST">
                  
+                 	
+                 	<div class="col-md-12">
+                       <label>Codigo : </label>
+                       <input type="text" name="codigo" th:field="*{codigo}" class="form-control" placeholder=" " required>
+                    </div>
+                 
                     <div class="col-md-12">
                        <label>Nombre : </label>
                        <input type="text" name="titulo" th:field="*{nombre}" class="form-control" placeholder=" " required>

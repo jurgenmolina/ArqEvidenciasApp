@@ -70,6 +70,7 @@ public class CursoControlador {
 	    
 		Curso cursoActual = cursoServicio.selectCursobyID(id);
 		cursoActual.setId(id);
+		cursoActual.setCodigo(curso.getCodigo());
 		cursoActual.setNombre(curso.getNombre());
 		cursoActual.setDescripcion(curso.getDescripcion());
 		cursoActual.setSemestre(curso.getSemestre());

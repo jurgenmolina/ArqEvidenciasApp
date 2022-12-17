@@ -1,8 +1,8 @@
 package com.app.proyect.Modelo;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -16,12 +16,16 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 
 @Entity
@@ -32,38 +36,47 @@ public class Usuario {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Column(name = "codigo", nullable = true)
+	@Column(name = "codigo", nullable = false, length = 10)
 	private int codigo;
 	
-	@Column(name = "tipo_documento")
+	@Column(name = "tipo_documento",  nullable = false, length = 50)
 	private String tipoDocumento;
 	
-	@Column(name = "documento")
+	@Column(name = "documento", nullable = false, length = 15)
 	private String documento;
 
-	@Column(name = "primer_nombre")
+	@Column(name = "primer_nombre", nullable = false, length = 256)
 	private String primerNombre;
 	
-	@Column(name = "segundo_nombre")
+	@Column(name = "segundo_nombre", length = 256)
 	private String segundoNombre;
 
-	@Column(name = "primer_apellido")
+	@Column(name = "primer_apellido", nullable = false, length = 256)
 	private String primerApellido;
 	
-	@Column(name = "segundo_apellido")
+	@Column(name = "segundo_apellido", length = 256)
 	private String segundoApellido;
 	
-	@Column(name = "telefono")
+	@Column(name = "telefono", nullable = false, length = 15)
 	private String telefono;
 	
-	@Column(name = "email")
+	@Column(name = "email", nullable = false, length = 256)
 	private String email;
 	
-	@Column(name = "password")
+	@Column(name = "password", nullable = false, length = 256)
 	private String password;
 	
-	@Column(name = "foto")
+	@Column(name = "foto", length = 8)
 	private String foto;
+	
+	@Column(name = "semestre", nullable = false)
+	private int semestre;	
+	
+	@DateTimeFormat(iso = ISO.DATE)
+	@Past
+	@NotNull(message = "Debe ingresar su fecha de nacimiento")
+	@Column(name = "fechaNacimiento")
+	private LocalDate fechaNacimiento;
 	
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "usuarios_roles", joinColumns = @JoinColumn(name = "usuario_id", referencedColumnName = "id"),
@@ -77,7 +90,9 @@ public class Usuario {
 	)
 	private List<Grupo> grupos = new ArrayList<>();
 	
-
+	@OneToMany(mappedBy = "estudiante", cascade = CascadeType.MERGE)
+	private List<ActividadEstudiante> actividadesEstudiantes = new ArrayList<>();
+	
 	public Usuario() {
 
 	}
@@ -143,6 +158,25 @@ public class Usuario {
 		this.password = password;
 		this.foto = foto;
 		this.roles = roles;
+	}
+
+	public Usuario(int codigo, String tipoDocumento, String documento, String primerNombre, String segundoNombre,
+			String primerApellido, String segundoApellido, String telefono, String email, String password, String foto,
+			int semestre, LocalDate fechaNacimiento) {
+		super();
+		this.codigo = codigo;
+		this.tipoDocumento = tipoDocumento;
+		this.documento = documento;
+		this.primerNombre = primerNombre;
+		this.segundoNombre = segundoNombre;
+		this.primerApellido = primerApellido;
+		this.segundoApellido = segundoApellido;
+		this.telefono = telefono;
+		this.email = email;
+		this.password = password;
+		this.foto = foto;
+		this.semestre = semestre;
+		this.fechaNacimiento = fechaNacimiento;
 	}
 
 	public Collection<Rol> getRoles() {
@@ -248,14 +282,6 @@ public class Usuario {
 	public void setFoto(String foto) {
 		this.foto = foto;
 	}
-	
-	public void añadirRol(Rol rol) {
-		this.roles.add(rol);
-	}
-
-	public void eliminarRol(Rol rol) {
-		this.roles.remove(rol);
-	}
 
 	public List<Grupo> getGrupos() {
 		return grupos;
@@ -265,14 +291,25 @@ public class Usuario {
 		this.grupos = grupos;
 	}
 
-//	@Override
-//	public String toString() {
-//		return  primerNombre + " " + segundoNombre + " " + primerApellido + " " + segundoApellido;
-//	}
+	public int getSemestre() {
+		return semestre;
+	}
+
+	public void setSemestre(int semestre) {
+		this.semestre = semestre;
+	}
+
+	public LocalDate getFechaNacimiento() {
+		return fechaNacimiento;
+	}
+
+	public void setFechaNacimiento(LocalDate fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
+	}
 
 	@Override
 	public String toString() {
-		return " " + codigo + " ";
+		return  codigo + " " + primerNombre + " " + segundoNombre + " " + primerApellido + " " + segundoApellido;
 	}
 
 	

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.app.proyect.Modelo.Criterio;
 import com.app.proyect.Modelo.Curso;
 import com.app.proyect.Modelo.Grupo;
 import com.app.proyect.Modelo.Usuario;
@@ -41,6 +42,25 @@ public class GrupoControlador {
 		List<Grupo> listGrupos = grupoServicio.listGrupos();
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		Usuario usuario = usuarioServicio.selectUsuariobyEmail(auth.getName());
+		List<Grupo> listGruposProfesores = new ArrayList<>();
+		
+		for (Grupo grupo : listGrupos) {
+			if (grupo.getProfesor().equals(usuario)) {
+				listGruposProfesores.add(grupo);
+			}
+		}
+		
+		List<Grupo> listGruposEstudiantes = new ArrayList<>();
+		
+		for (Grupo grupo : listGrupos) {
+			if (grupo.getEstudiantes().contains(usuario)) {
+				System.out.println(grupo.getEstudiantes());
+				System.out.println(usuario);
+				listGruposEstudiantes.add(grupo);
+			}
+		}
+		modelo.addAttribute("listGruposEstudiantes", listGruposEstudiantes);
+		modelo.addAttribute("listGruposProfesores", listGruposProfesores);
 		modelo.addAttribute("listGrupos", listGrupos);
 		modelo.addAttribute("usuario", usuario);
 		return "grupos";

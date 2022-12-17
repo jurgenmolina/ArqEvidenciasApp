@@ -62,6 +62,7 @@ public class SeguridadAppConfiguracion extends WebSecurityConfigurerAdapter {
 		.antMatchers("/estudiantes/editar/*").hasAnyAuthority("director")
 		.antMatchers("/competencias/editar/*").hasAnyAuthority("director")
 		.antMatchers("/competencias").hasAnyAuthority("director")
+		.antMatchers("/actividades/*").hasAnyAuthority("profesor","estudiante") //cambiar profesor
 	    .anyRequest().authenticated()
 		.and()
 		.formLogin()
