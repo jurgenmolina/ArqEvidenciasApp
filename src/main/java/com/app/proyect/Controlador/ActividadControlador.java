@@ -6,10 +6,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
-import org.hibernate.validator.internal.util.privilegedactions.NewInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -36,9 +34,21 @@ import com.app.proyect.Servicio.GrupoServicio;
 import com.app.proyect.Servicio.ResultadoAprendizajeServicio;
 import com.app.proyect.Servicio.UsuarioServicio;
 
+/**
+ * @author jurgenmolina - GitHub
+ * @version 01
+ * @category Controlador de la entidad 'Actividad' sirve para comunicar información entre la vista y el modelo
+ * y que la vista se encargue de mostrar la información que tenemos en el modelo.
+ */
+
 @Controller
 public class ActividadControlador {
-
+	
+	
+	/**
+	 * Genera una clase de Servicio que aglutine los diferentes métodos que estos dos repositorios poseen
+	 */
+	
 	@Autowired
 	private ActividadServicio actividadServicio;
 	
@@ -56,6 +66,11 @@ public class ActividadControlador {
 	
 	@Autowired
 	private ResultadoAprendizajeServicio raServicio;
+	
+
+	/**
+	 * Petición Get para ver las actividades de un grupo
+	 */
 	
 	@GetMapping("/actividades/{id}")
 	public String viewActividades(@PathVariable int id, Model modelo) {
@@ -87,6 +102,10 @@ public class ActividadControlador {
 		return "verGrupo";
 	}
 	
+	/**
+	 * Petición Post para guardar un nuevo registro en la base de datos
+	 */
+	
 	@PostMapping("/actividades/nuevo")
 	public String insertarActividad(@ModelAttribute("grupo") Grupo grupo, Model modelo) {
 		
@@ -105,6 +124,10 @@ public class ActividadControlador {
 		return "crear_actividad";
 	}
 	
+	/**
+	 * 
+	 */
+	
 	@PostMapping("/actividades")
 	public String insertarActividad(@ModelAttribute("actividad") Actividad actividad) {
 		actividadServicio.insertActividad(actividad);
@@ -117,6 +140,10 @@ public class ActividadControlador {
 		return "redirect:/actividades/" + actividad.getGrupo().getId();
 	}
 	
+	/**
+	 * Petición Get para ver los estudiantes de un grupo
+	 */
+	
 	@GetMapping("/actividades/{id_grupo}/ver")
 	public String showFormEditActividad(@PathVariable int id_grupo, Model modelo) {
 		
@@ -128,6 +155,10 @@ public class ActividadControlador {
 		modelo.addAttribute("usuario", usuario);
 		return "estudiantesGrupo";
 	}
+	
+	/**
+	 * Petición Get para abrir un formulario de edicion de actividad
+	 */
 
 	@GetMapping("/actividades/{id_grupo}/editar/{id_actividad}")
 	public String showFormEditActividad(@PathVariable int id_grupo,@PathVariable int id_actividad, Model modelo) {
@@ -142,6 +173,10 @@ public class ActividadControlador {
 		return "editar_actividad";
 	}
 	
+	/**
+	 * Petición Post para actualizar una actividad de un grupo
+	 */
+	
 	@PostMapping("/actividades/{id_grupo}/{id_actividad}")
 	public String updateActividad(@PathVariable int id_grupo, @PathVariable int id_actividad, @ModelAttribute("actividad") Actividad actividad,
 			Model modelo) {
@@ -152,6 +187,10 @@ public class ActividadControlador {
 		actividadServicio.updateActividad(actividadActual);
 		return "redirect:/actividades/" + id_grupo;
 	}
+	
+	/**
+	 * Petición Get para abrir el formulario de subir una evidencia sobre una actividad
+	 */
 	
 	@GetMapping("/actividades/{id_grupo}/{id_actividad}")
 	public String showFormSubirActividad(@PathVariable int id_grupo,@PathVariable int id_actividad, Model modelo) {
@@ -175,6 +214,10 @@ public class ActividadControlador {
 		modelo.addAttribute("usuario", usuario);
 		return "subir_evidencia";
 	}
+	
+	/**
+	 * Petición Post para subir un archivo al servidor y guardar el nombre en la base de datos
+	 */
 	
 	@PostMapping("/actividades/{id_grupo}/{id_actividad}/{id_actividadEstudiante}")
 	public String updateActividadEstudiante(@PathVariable int id_grupo, @PathVariable int id_actividad, @PathVariable int id_actividadEstudiante, 
@@ -203,6 +246,10 @@ public class ActividadControlador {
 		actividadEstudianteServicio.updateActividadEstudiante(aEstudiante);
 		return "redirect:/actividades/" + id_grupo;
 	}
+	
+	/**
+	 * Petición Get para eliminar una actividad
+	 */
 	 
 	@GetMapping("/actividades/{id_grupo}/delete/{id_actividad}")
 	public String deleteActividad(@PathVariable int id_grupo, @PathVariable int id_actividad) {
@@ -219,6 +266,10 @@ public class ActividadControlador {
 		Grupo grupo = grupoServicio.selectGrupobyID(id_grupo);
 		return "redirect:/actividades/" + grupo.getId();
 	}
+	
+	/**
+	 * Petición Get para agregar competencias a un grupo
+	 */
 	
 	@GetMapping("/actividades/agregarCompetencias/{id}")
 	public String showFormAgregarCompetencias(@PathVariable int id, Model modelo) {
@@ -248,6 +299,10 @@ public class ActividadControlador {
 		return "grupo_agregar_competencias";
 	}
 	
+	/**
+	 * Petición Post para guardar el registro de la competencia en un grupo
+	 */
+	
 	@PostMapping("/actividades/agregarCompetencias/{id}")
 	public String addCompetenciasGrupo(@PathVariable int id, @ModelAttribute("grupo") Grupo grupo,
 			Model modelo) {
@@ -261,6 +316,10 @@ public class ActividadControlador {
 		return "redirect:/actividades/agregarCompetencias/" + grupoActual.getId();
 	}
 	
+	/**
+	 * Petición eliminar una competencia de un grupo
+	 */
+	
 	@GetMapping("/actividades/agregarCompetencias/{id_grupo}/{id_competencia}")
 	public String deleteGrupo(@PathVariable int id_grupo, @PathVariable String id_competencia) {
 		Grupo grupoActual = grupoServicio.selectGrupobyID(id_grupo);
@@ -270,6 +329,10 @@ public class ActividadControlador {
 		grupoServicio.updateGrupo(grupoActual);
 		return "redirect:/actividades/agregarCompetencias/" + grupoActual.getId();
 	}
+	
+	/**
+	 * Petición Get para ver las entregas de los estudiantes sobre una actividad
+	 */
 	
 	@GetMapping("/actividades/{id_grupo}/{id_actividad}/entregas")
 	public String showVerEntregas(@PathVariable int id_grupo,@PathVariable int id_actividad, Model modelo) {

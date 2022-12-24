@@ -16,8 +16,8 @@
       	<a th:href="@{/actividades/{id}(id=${grupo.id})}" class="btn btn-secondary">Atras</a>
       <br>
       <br>
-      	 <table class="table table-dark table-striped">
-			<thead class="table-dark">
+      	 <table class="table table-striped table-hover table-bordered">
+			<thead class="table text-white border-light" style="background-color: #dd4b39">
 				<tr>
 					<th>Actividad</th>
 					<th>Codigo - Estudiante</th>
@@ -30,7 +30,7 @@
 					<td th:text="${ae.actividad}"></td>
 					<td th:text="${ae.estudiante}"></td>
 					<td th:text="${ae.evidencia}"></td>
-					<td><a  class="btn btn-warning">Ver</a>&nbsp&nbsp&nbsp
+					<td><a  class="btn btn-info"><i class="bi bi-eye-fill"></i></a>&nbsp&nbsp&nbsp
 					</td>
 				</tr>
 			</tbody>

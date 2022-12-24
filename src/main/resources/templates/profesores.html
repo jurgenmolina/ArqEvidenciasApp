@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-<head th:replace="menu/menu :: head">
+<head th:replace="menu/menu4 :: head">
 <meta charset="utf-8">
 </head>
 <body>
@@ -14,9 +14,9 @@
       <div class="container-fluid">
       	
       	
-      	<table id="example" class="table table-striped table-bordered"
+      	<table id="example" class="table table-striped table-hover table-bordered"
 			style="width: 100%">
-			<thead class="table-dark">
+			<thead class="table text-white border-light" style="background-color: #dd4b39">
 				<tr>
 					<th>Tipo de Documento</th>
 					<th>Documento</th>
@@ -36,9 +36,9 @@
 					<td th:text="${profesor.primerApellido}"></td>
 					<td th:text="${profesor.email}"></td>
 					<td th:text="${profesor.telefono}"></td> 
-					<td><a  th:href="@{/profesores/ver/{id}(id=${profesor.id})}" class="btn btn-warning">Ver</a>&nbsp&nbsp&nbsp
-					 	<a th:href="@{/profesores/editar/{id}(id=${profesor.id})}" class="btn btn-info">Editar</a>&nbsp&nbsp&nbsp					 
-						<a th:href="@{/profesores/{id}(id=${profesor.id})}" class="btn btn-danger">Eliminar</a>
+					<td><a  th:href="@{/profesores/ver/{id}(id=${profesor.id})}" class="btn btn-info"><i class="bi bi-eye-fill"></i></a>&nbsp&nbsp&nbsp
+					 	<a th:href="@{/profesores/editar/{id}(id=${profesor.id})}" class="btn btn-warning"><i class="bi bi-pencil-square"></i></a>&nbsp&nbsp&nbsp					 
+						<a th:href="@{/profesores/{id}(id=${profesor.id})}" class="btn btn-danger"><i class="bi bi-trash-fill"></i></a>
 					</td>
 				</tr>
 			</tbody>
@@ -48,7 +48,7 @@
       </div>
       </main>
    
-    <footer th:replace="menu/menu :: footer"></footer>
+    <footer th:replace="menu/menu4 :: footer"></footer>
   </body>
 </html>
 

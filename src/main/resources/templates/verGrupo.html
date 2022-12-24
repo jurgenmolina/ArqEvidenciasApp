@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-<head th:replace="menu/menu2 :: head">
+<head th:replace="menu/menu4 :: head">
 <meta charset="utf-8">
 </head>
 <body>
@@ -64,9 +64,9 @@
 			<br>
 			<h5 class="card-title text-center">Actividades</h5>
 
-			<table id="example" class="table table-striped table-bordered"
+			<table id="example" class="table table-striped table-hover table-bordered"
 				style="width: 100%">
-				<thead class="table-dark">
+				<thead class="table text-white border-light" style="background-color: #dd4b39">
 					<tr>
 						<th>Nombre</th>
 						<th>Descripción</th>
@@ -82,25 +82,27 @@
 						<td th:text="${actividad.resultadoAprendizaje}"></td>
 						<td><a sec:authorize="hasAnyAuthority('profesor')"
 							th:href="@{/actividades/{id_grupo}/{id_actividad}/entregas(id_grupo=${id}, id_actividad=${actividad.id})}"
-							class="btn btn-warning">Ver entregas</a>&nbsp&nbsp&nbsp
+							class="btn btn-info"><i class="bi bi-eye-fill"></i></a>
 							
 							
 						    <div th:if="${ids.contains(actividad.id)}">
 							  <a sec:authorize="hasAnyAuthority('estudiante')"
 							th:href="@{/actividades/{id_grupo}/{id_actividad}(id_grupo=${id}, id_actividad=${actividad.id})}"
-							class="btn btn-info">Editar evidencia</a>&nbsp&nbsp&nbsp
+							class="btn btn-warning"><i class="bi bi-pencil-square"></i></a>
 							</div>
 							<div th:unless="${ids.contains(actividad.id)}">
 							  <a sec:authorize="hasAnyAuthority('estudiante')"
 							th:href="@{/actividades/{id_grupo}/{id_actividad}(id_grupo=${id}, id_actividad=${actividad.id})}"
-							class="btn btn-warning">Subir evidencia</a>&nbsp&nbsp&nbsp
+							class="btn btn-warning"><i class="bi bi-box-arrow-up"></i></a>
 							</div>
 							
 							 <a sec:authorize="hasAnyAuthority('profesor')"
 							th:href="@{/actividades/{id_grupo}/editar/{id_actividad}(id_grupo=${id}, id_actividad=${actividad.id})}"
-							class="btn btn-info">Editar</a>&nbsp&nbsp&nbsp <a sec:authorize="hasAnyAuthority('profesor')"
+							class="btn btn-warning"><i class="bi bi-pencil-square"></i></a>
+							
+							 <a sec:authorize="hasAnyAuthority('profesor')"
 							th:href="@{/actividades/{id_grupo}/delete/{id_actividad}(id_grupo=${id}, id_actividad=${actividad.id})}"
-							class="btn btn-danger">Eliminar</a></td>
+							class="btn btn-danger"><i class="bi bi-trash-fill"></i></a></td>
 					</tr>
 				</tbody>
 			</table>
@@ -108,7 +110,7 @@
 		</div>
 	</main>
 
-	<footer th:replace="menu/menu2 :: footer"></footer>
+	<footer th:replace="menu/menu4 :: footer"></footer>
 </body>
 </html>
 
