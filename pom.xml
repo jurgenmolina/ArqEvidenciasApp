@@ -94,7 +94,11 @@
 			<artifactId>mysql-connector-j</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-		
+		<dependency>
+		    <groupId>com.yugabyte</groupId>
+		    <artifactId>ysql</artifactId>
+		    <version>42.2.7-yb-2</version>
+		</dependency>
 		  
 	</dependencies>
 

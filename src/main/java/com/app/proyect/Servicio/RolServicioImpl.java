@@ -23,5 +23,10 @@ public class RolServicioImpl implements RolServicio{
 		return repositorio.findAll();
 	}
 
+	@Override
+	public Rol insert(Rol rol) {
+		return repositorio.save(rol);
+	}
+
 
 }

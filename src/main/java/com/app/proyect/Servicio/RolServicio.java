@@ -8,4 +8,6 @@ public interface RolServicio {
 	
 	public List<Rol> listRoles();
 	
+	public Rol insert(Rol rol);
+	
 }
