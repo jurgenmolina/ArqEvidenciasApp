@@ -69,12 +69,11 @@ public class Usuario {
 	@Column(name = "foto", length = 8)
 	private String foto;
 	
-	@Column(name = "semestre", nullable = false)
+	@Column(name = "semestre") 
 	private int semestre;	
 	
 	@DateTimeFormat(iso = ISO.DATE)
 	@Past
-	@NotNull(message = "Debe ingresar su fecha de nacimiento")
 	@Column(name = "fechaNacimiento")
 	private LocalDate fechaNacimiento;
 	
