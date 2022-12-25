@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head th:replace="menu/menu4 :: head">
+<meta charset="utf-8">
+</head>
+<body>
+
+	<header th:replace="menu/menu :: header"></header>
+	
+	<section th:replace="menu/menu :: section"></section>
+    
+    <main class="mt-5 pt-3">
+      <div class="container-fluid">
+      
+      	 <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
+              <h1 class="text-center">Crear un nuevo competencia</h1>
+              <div class="card-body">
+                 <form class="row g-3" th:action="@{/competencias}" th:object="${competencia}" method="POST">
+                 
+                 	<div class="col-md-12">
+                       <label>Identificacion : </label>
+                       <input type="text" name="identificacion" th:field="*{identificacion}" class="form-control" placeholder=" " required>
+                    </div>
+                    
+                    <div class="form-group">
+						<div >
+						<label for="floatingSelectGrid">Tipo Competencia: </label>
+							<select th:field="*{tipoCompetencia}" class="form-select" required>
+							  <option value="GENERICA">Competencia Generica</option>
+							  <option value="ESPECIFICA">Competencia Especifica</option>							
+							</select>														
+						</div>
+					</div> 
+                    
+                    <div class="col-md-12">
+                       <label>Nombre : </label>
+                       <input type="text" name="nombre" th:field="*{nombre}" class="form-control" placeholder=" " required>
+                    </div>
+                 
+                    <div class="col-md-12">
+                       <label>Descripcion : </label>
+                       <input type="text" name="descripcion" th:field="*{descripcion}" class="form-control" placeholder=" " required>
+                    </div>
+                    
+                    <div class="col-md-12">
+                       <label>Resultado de aprendizaje : </label>
+                       <input type="text" name="resultadoAprendizaje" th:field="*{resultadoAprendizaje}" class="form-control" required>
+                    </div>
+             
+                    <div class="box-footer">
+                       <button class="btn btn-success">Agregar</button>                       
+                    </div>
+                 </form>
+              </div>
+              </div>
+              
+      
+      </div>
+      </main>
+   
+    <footer th:replace="menu/menu4 :: footer"></footer>
+    
+  </body>
+</html>
+

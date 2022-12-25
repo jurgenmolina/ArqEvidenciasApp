@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head th:replace="menu/menu4 :: head">
+<meta charset="utf-8">
+</head>
+<body>
+
+	<header th:replace="menu/menu :: header"></header>
+	
+	<section th:replace="menu/menu :: section"></section>
+	
+    <main class="mt-5 pt-3">
+      <div class="container-fluid">
+      
+      	 <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
+              <h1 class="text-center">Crear un nuevo grupo</h1>
+              <div class="card-body">
+                 <form class="row g-3"th:action="@{/grupos/{id}(id=${grupo.id})}"  th:object="${grupo}" method="POST">
+                 
+                    <div class="col-md-12">
+                       <label>Nombre : </label>
+                       <input type="text" name="nombre" th:field="*{nombre}" class="form-control" placeholder=" " required>
+                    </div>
+                    
+                    <div class="col-md-12">
+                       <label>Descripcion : </label>
+                       <input type="text" name="descripcion" th:field="*{descripcion}" class="form-control" required>
+                    </div>
+                    
+                    <div class="col-md-4">
+						<div >
+						<label for="floatingSelectGrid">Curso: </label>
+							<select th:field="*{curso}" class="form-select" required>
+								<th:block th:each="curso : ${listCursos}">
+									<option th:text="${curso.nombre}" th:value="${curso.id}"></option>
+								</th:block>
+							</select>														
+						</div>
+					</div> 
+					
+					<div class="col-md-4">
+						<div >
+						<label for="floatingSelectGrid">Profesor: </label>
+							<select th:field="*{profesor}" class="form-select" required>
+								<th:block th:each="profesor : ${listProfesores}">
+									<option th:text="${profesor.primerNombre}" th:value="${profesor.id}"></option>
+								</th:block>
+							</select>														
+						</div>
+					</div> 
+             
+                    <div class="box-footer">
+                       <button class="btn btn-success">Agregar</button>                       
+                    </div>
+                 </form>
+              </div>
+              </div>
+              
+      
+      </div>
+      </main>
+   
+    <footer th:replace="menu/menu4 :: footer"></footer>
+  </body>
+</html>
+
