@@ -310,7 +310,7 @@ public class ActividadControlador {
 		Grupo grupoActual = grupoServicio.selectGrupobyID(id);
 		
 		for (Competencia competencia : grupo.getCompetencias()) {
-			grupoActual.añadirCompetencia(competencia);
+			grupoActual.agregarCompetencia(competencia);
 		}
 		grupoServicio.updateGrupo(grupoActual);
 		return "redirect:/actividades/agregarCompetencias/" + grupoActual.getId();

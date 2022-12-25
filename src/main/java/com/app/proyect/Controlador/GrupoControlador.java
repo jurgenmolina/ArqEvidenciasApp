@@ -151,7 +151,7 @@ public class GrupoControlador {
 		Grupo grupoActual = grupoServicio.selectGrupobyID(id);
 		
 		for (Usuario estudiante : grupo.getEstudiantes()) {
-			grupoActual.añadirEstudiante(estudiante);
+			grupoActual.agregarEstudiante(estudiante);
 		} 
 		grupoServicio.updateGrupo(grupoActual);
 		return "redirect:/grupos";

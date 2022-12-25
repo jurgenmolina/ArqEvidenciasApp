@@ -123,7 +123,7 @@ public class Grupo {
 		this.estudiantes = estudiantes;
 	}
 	
-	public void añadirEstudiante(Usuario estudiante) {
+	public void agregarEstudiante(Usuario estudiante) {
 		this.estudiantes.add(estudiante);
 	}
 
@@ -155,7 +155,7 @@ public class Grupo {
 		this.actividades = actividades;
 	}
 	
-	public void añadirActividad(Actividad actividad) {
+	public void agregarActividad(Actividad actividad) {
 		this.actividades.add(actividad);
 	}
 
@@ -163,7 +163,7 @@ public class Grupo {
 		this.actividades.remove(actividad);
 	}
 	
-	public void añadirCompetencia(Competencia competencia) {
+	public void agregarCompetencia(Competencia competencia) {
 		this.competencias.add(competencia);
 	}
 

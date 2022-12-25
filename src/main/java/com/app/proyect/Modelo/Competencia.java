@@ -85,8 +85,8 @@ public class Competencia {
 		return identificacion;
 	}
 
-	public void setIdentificacion(String identificación) {
-		this.identificacion = identificación;
+	public void setIdentificacion(String identificacion) {
+		this.identificacion = identificacion;
 	}
 
 	public String getTipoCompetencia() {
