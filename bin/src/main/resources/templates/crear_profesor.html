@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head th:replace="menu/menu2 :: head">
+<meta charset="utf-8">
+</head>
+<body>
+
+	<header th:replace="menu/menu :: header"></header>
+	
+	<section th:replace="menu/menu :: section"></section>
+    
+    <main class="mt-5 pt-3">
+      <div class="container-fluid">
+      
+      	 <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
+              <h1 class="text-center">Agregar Profesor</h1>
+              <div class="card-body">
+                 <form class="row g-3" th:action="@{/profesores}" th:object="${profesor}" method="POST">
+                 
+                   <div class="form-group">
+						<label class="control-label" for="codigo">Codigo : </label> <input
+							id="codigo" type="text" class="form-control" th:field="*{codigo}"
+							required autofocus="autofocus">
+					</div>
+					
+					 <div class="form-group">
+						<div >
+						<label for="floatingSelectGrid">Tipo Documento: </label>
+							<select th:field="*{tipoDocumento}" class="form-select" required>
+							  <option value="Cedula de ciudadania">Cedula de ciudadania</option>
+							  <option value="Tarjeta de identidad">Tarjeta de identidad</option>
+							  <option value="Cedula de extranjeria">Cedula de extranjeria</option>
+							  <option value="Contraseña de registraduria">Contraseña de registraduria</option>								
+							</select>														
+						</div>
+					</div> 
+					
+					<div class="form-group">
+						<label class="control-label" for="documento">Documento : </label> <input
+							id="documento" type="text" class="form-control" th:field="*{documento}"
+							required autofocus="autofocus">
+					</div>
+					
+					<div class="form-group">
+						<label class="control-label" for="primerNombre">Primer Nombre : </label> <input
+							id="primerNombre" type="text" class="form-control" th:field="*{primerNombre}"
+							required autofocus="autofocus">
+					</div>
+					
+					<div class="form-group">
+						<label class="control-label" for="segundoNombre">Segundo Nombre : </label> <input
+							id="segundoNombre" type="text" class="form-control" th:field="*{segundoNombre}"
+							required autofocus="autofocus">
+					</div>
+					
+					<div class="form-group">
+						<label class="control-label" for="primerApellido">Primer Apellido : </label> <input
+							id="primerApellido" type="text" class="form-control" th:field="*{primerApellido}"
+							required autofocus="autofocus">
+					</div>
+					
+					<div class="form-group">
+						<label class="control-label" for="segundoApellido">Segundo Apellido : </label> <input
+							id="segundoApellido" type="text" class="form-control" th:field="*{segundoApellido}"
+							required autofocus="autofocus">
+					</div>
+
+					<div class="form-group">
+						<label class="control-label" for="telefono">Telefono : </label> <input
+							id="telefono"  type="text" class="form-control" th:field="*{telefono}"
+							required autofocus="autofocus">
+					</div>
+					
+					<div class="form-group">
+						<label class="control-label" for="email">Email : </label> <input
+							id="email" type="email" class="form-control" th:field="*{email}"
+							required autofocus="autofocus">
+					</div>
+
+					<div class="form-group">
+						<label class="control-label" for="password">Password : </label> <input
+							type="password" id="password" class="form-control" th:field="*{password}"
+							required autofocus="autofocus">
+					</div>
+					
+					<div class="form-group">
+						<label class="control-label" for="FechaNacimiento">Fecha nacimiento : </label> <input
+							id="fechaNacimiento"  type="date" class="form-control" th:field="*{fechaNacimiento}"
+							required autofocus="autofocus">
+					</div>
+					
+					<div class="form-group">
+						<label class="control-label" for="foto">Foto : </label> <input
+							id="foto"  type="text" class="form-control" th:field="*{foto}"
+							required autofocus="autofocus">
+					</div>
+             
+                    <div class="box-footer">
+                       <button class="btn btn-success">Agregar</button>                       
+                    </div>
+                 </form>
+              </div>
+              </div>
+              
+      
+      </div>
+      </main>
+   
+   	<footer th:replace="menu/menu2 :: footer"></footer>
+  </body>
+</html>
+

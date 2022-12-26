@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head th:replace="menu/menu :: head">
+<meta charset="utf-8">
+</head>
+<body>
+
+	<header th:replace="menu/menu :: header"></header>
+	
+	<section th:replace="menu/menu :: section"></section>
+	
+	<main class="mt-5 pt-3">
+		<div class="container-fluid">
+		<h4>
+			¡Bienvenido! <span sec:authentication="principal.username"></span>
+			Tu rol es : <span sec:authentication="principal.authorities"></span>
+		</h4>
+		</div>
+	</main>
+
+	<footer th:replace="menu/menu :: footer"></footer>
+</body>
+</html>
+

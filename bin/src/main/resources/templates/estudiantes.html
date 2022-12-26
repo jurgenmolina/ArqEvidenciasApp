@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head th:replace="menu/menu :: head">
+<meta charset="utf-8">
+</head>
+<body>
+
+	<header th:replace="menu/menu :: header"></header>
+	
+	<section th:replace="menu/menu :: section"></section>
+    
+    <main class="mt-5 pt-3">
+      <div class="container-fluid">
+      	
+      	
+      	<table id="example" class="table table-striped table-bordered"
+			style="width: 100%">
+			<thead class="table-dark">
+				<tr>
+					<th>Codigo</th>
+					<th>Tipo de Documento</th>
+					<th>Documento</th>
+					<th>Nombre</th>
+					<th>Apellidos</th>
+					<th>Correo</th>
+					<th>telefono</th>
+					<th> Opciones</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="estudiante : ${listEstudiantes}">
+					<td th:text="${estudiante.codigo}"></td>
+					<td th:text="${estudiante.tipoDocumento}"></td>
+					<td th:text="${estudiante.documento}"></td>
+					<td th:text="${estudiante.primerNombre}"></td>
+					<td th:text="${estudiante.primerApellido}"></td>
+					<td th:text="${estudiante.email}"></td>
+					<td th:text="${estudiante.telefono}"></td>
+					<td><a  th:href="@{/estudiantes/ver/{id}(id=${estudiante.id})}" class="btn btn-warning">Ver</a>&nbsp&nbsp&nbsp
+					 	<a th:href="@{/estudiantes/editar/{id}(id=${estudiante.id})}" class="btn btn-info">Editar</a>&nbsp&nbsp&nbsp					 
+						<a th:href="@{/estudiantes/{id}(id=${estudiante.id})}" class="btn btn-danger">Eliminar</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	
+      
+      </div>
+      </main>
+   
+    <footer th:replace="menu/menu :: footer"></footer>
+  </body>
+</html>
+

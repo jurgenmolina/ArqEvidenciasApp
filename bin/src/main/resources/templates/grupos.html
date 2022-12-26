@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head th:replace="menu/menu :: head">
+<meta charset="utf-8">
+</head>
+<body>
+
+	<header th:replace="menu/menu :: header"></header>
+	
+	<section th:replace="menu/menu :: section"></section>
+    
+    <main class="mt-5 pt-3">
+      <div class="container-fluid">
+      	
+      	<table sec:authorize="hasAnyAuthority('estudiante')" id="example" class="table table-striped table-bordered"
+			style="width: 100%">
+			<h4>Mis grupos</h4>
+			<thead class="table-dark">
+				<tr>
+					<th>Nombre</th>
+					<th>Descripción</th>
+					<th>Curso</th>
+					<th>Profesor</th>
+					<th> Opciones</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="grupo : ${listGruposEstudiantes}">
+
+					<td th:text="${grupo.nombre}"></td>
+					<td th:text="${grupo.descripcion}"></td>
+					<td th:text="${grupo.curso}"></td>
+					<td th:text="${grupo.profesor}"></td>
+					<td>
+						<a sec:authorize="hasAnyAuthority('estudiante')" th:href="@{/actividades/{id}(id=${grupo.id})}" 
+						class="btn btn-secondary">Ingresar</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+      	
+      	<table sec:authorize="hasAnyAuthority('profesor')" id="example" class="table table-striped table-bordered"
+			style="width: 100%">
+			<thead class="table-dark">
+				<tr>
+					<th>Nombre</th>
+					<th>Descripción</th>
+					<th>Curso</th>
+					<th>Profesor</th>
+					<th> Opciones</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="grupo : ${listGruposProfesores}">
+
+					<td th:text="${grupo.nombre}"></td>
+					<td th:text="${grupo.descripcion}"></td>
+					<td th:text="${grupo.curso}"></td>
+					<td th:text="${grupo.profesor}"></td>
+					<td>
+						<a sec:authorize="hasAnyAuthority('profesor')" th:href="@{/actividades/{id}(id=${grupo.id})}" 
+						class="btn btn-secondary">Ingresar</a>&nbsp&nbsp&nbsp	
+						<a sec:authorize="hasAnyAuthority('director')" th:href="@{/grupos/agregarEstudiantes/{id}(id=${grupo.id})}" 
+						class="btn btn-warning">Agregar Estudiantes</a>&nbsp&nbsp&nbsp
+					 	<a  sec:authorize="hasAnyAuthority('director')" th:href="@{/grupos/editar/{id}(id=${grupo.id})}"
+					 	 class="btn btn-info">Editar</a>&nbsp&nbsp&nbsp					 
+						<a  sec:authorize="hasAnyAuthority('director')" th:href="@{/grupos/{id}(id=${grupo.id})}"
+						 class="btn btn-danger">Eliminar</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		
+		<table sec:authorize="hasAnyAuthority('director')" id="example" class="table table-striped table-bordered"
+			style="width: 100%">
+			<thead class="table-dark">
+				<tr>
+					<th>Nombre</th>
+					<th>Descripción</th>
+					<th>Curso</th>
+					<th>Profesor</th>
+					<th> Opciones</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="grupo : ${listGrupos}">
+
+					<td th:text="${grupo.nombre}"></td>
+					<td th:text="${grupo.descripcion}"></td>
+					<td th:text="${grupo.curso}"></td>
+					<td th:text="${grupo.profesor}"></td>
+					<td>
+						<a sec:authorize="hasAnyAuthority('profesor')" th:href="@{/actividades/{id}(id=${grupo.id})}" 
+						class="btn btn-secondary">Ingresar</a>&nbsp&nbsp&nbsp	
+						<a sec:authorize="hasAnyAuthority('director')" th:href="@{/grupos/agregarEstudiantes/{id}(id=${grupo.id})}" 
+						class="btn btn-warning">Agregar Estudiantes</a>&nbsp&nbsp&nbsp
+					 	<a  sec:authorize="hasAnyAuthority('director')" th:href="@{/grupos/editar/{id}(id=${grupo.id})}"
+					 	 class="btn btn-info">Editar</a>&nbsp&nbsp&nbsp					 
+						<a  sec:authorize="hasAnyAuthority('director')" th:href="@{/grupos/{id}(id=${grupo.id})}"
+						 class="btn btn-danger">Eliminar</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	
+      
+      </div>
+      </main>
+   
+    <footer th:replace="menu/menu :: footer"></footer>
+  </body>
+</html>
+
