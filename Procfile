@@ -1,1 +1,1 @@
-web: java -Dspring.profiles.active=default -Dserver.port=$PORT 
+web: java $JAVA_OPTS -cp target/classes:target/dependency/* hello.Application
