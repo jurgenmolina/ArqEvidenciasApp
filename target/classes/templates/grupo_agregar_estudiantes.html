@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head th:replace="menu/menu4 :: head">
+<meta charset="utf-8">
+</head>
+<body>
+
+	<header th:replace="menu/menu :: header"></header>
+	
+	<section th:replace="menu/menu :: section"></section>
+	
+    <main class="mt-5 pt-3">
+      <div class="container-fluid">
+      
+      	 <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
+              <h1 class="text-center">agregar estudiantes</h1>
+              <div class="card-body">
+                 <form class="row g-3"th:action="@{/grupos/agregarEstudiantes/{id}(id=${grupo.id})}"  th:object="${grupo}" method="POST">
+                    	
+												
+							<table id="example" class="table table-striped table-hover table-bordered"
+							style="width: 100%">
+							<thead class="table text-white border-light" style="background-color: #dd4b39">
+								<tr>
+									<th>Estudiantes</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+								<td>
+									<th:block th:each="estudiante : ${listEstudiantes}"  requerid>
+									<input type="checkbox" name="estudiantes" th:value="${estudiante.id}"/>
+	                				<label th:text="${estudiante.codigo}"></label>&nbsp
+	                				<label>-</label>
+	                				<label th:text="${estudiante.primerNombre}"></label>&nbsp
+	                				<label th:text="${estudiante.segundoNombre}"></label>&nbsp
+	                				<label th:text="${estudiante.primerApellido}"></label>&nbsp
+	                				<label th:text="${estudiante.segundoApellido}"></label>&nbsp
+	                				<br>
+									</th:block>
+								</td>
+								</tr>
+							</tbody>
+							</table>
+             
+                    <div class="box-footer">
+                       <button class="btn btn-success">Agregar</button>                       
+                    </div>
+                 </form>
+              </div>
+              </div>
+              
+      
+      </div>
+      </main>
+   
+    <footer th:replace="menu/menu4 :: footer"></footer>
+  </body>
+</html>
+

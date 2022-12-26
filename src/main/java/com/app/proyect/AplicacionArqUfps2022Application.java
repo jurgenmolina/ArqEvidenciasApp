@@ -11,7 +11,6 @@ public class AplicacionArqUfps2022Application  {
 
 	public static void main(String[] args) {
 		SpringApplication.run(AplicacionArqUfps2022Application.class, args);
-		
 	}
 	
 }

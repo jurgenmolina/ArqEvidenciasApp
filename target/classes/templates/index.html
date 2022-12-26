@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head th:replace="menu/menu4 :: head">
+<meta charset="utf-8">
+</head>
+<body>
+
+	<header th:replace="menu/menu :: header"></header>
+	
+	<section th:replace="menu/menu :: section"></section>
+	
+	<main class="mt-5 pt-3">
+		<div class="container-fluid">
+		<h4>
+			¡Bienvenido! <span sec:authentication="principal.username"></span>
+			Tu rol es : <span sec:authentication="principal.authorities"></span>
+		</h4>
+		</div>
+		<br>
+		
+		<div class=" container-fluid row justify-content-center">
+		<div id="carouselExampleIndicators" class="carousel slide " data-bs-ride="true" style="width: 1000px; height: 500px;">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="https://ww2.ufps.edu.co/public/imagenes/noticias/fdea024ff82b3dae8c9e4d3ee1b49ab8.jpg" class="d-block w-100"   alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="https://www.laopinion.com.co/sites/default/files/2021-04/Arquitectura-ufps-obtiene-su-primer-patente-en-proyecto.jpg" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="https://www.laopinion.com.co/sites/default/files/2019/06/07/imagenes_adicionales/f2.jpg" class="d-block w-100" alt="...">
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+</div>
+		
+	</main>
+	
+		
+
+	<footer th:replace="menu/menu4 :: footer"></footer>
+</body>
+</html>
+
